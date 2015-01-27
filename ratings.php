@@ -1,12 +1,12 @@
 <?php
 
-//check for errors when loading search.php, it redirects to home or index.php
-if(!isset($_GET['dvd'])){
+//check if genre info is available otherwise redirect
+if(!isset($_GET['rating'])){
     header('Location: index.php'); 
 }
 
-//Global method $_GET, $_POST, $_REQUEST (works for both post and get method) 
-$dvd = $_GET['dvd']; 
+//write sql statement to query genre data and then display 
+$rating = $_GET['rating']; 
 
 $host = 'itp460.usc.edu'; 
 $dbname = 'dvd'; 
@@ -18,28 +18,24 @@ $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 //prepared statement 
 //prevent malicious sql injection attacks by eliminating user input and precompiling sql code 
 $sql = "
-    SELECT title, genre_name, format_name, rating_name
+    SELECT title
     FROM dvds
-    INNER JOIN genres
-    ON genre_id = genres.id
-    INNER JOIN formats 
-    ON format_id = formats.id
     INNER JOIN ratings
     ON rating_id = ratings.id
-    WHERE title LIKE ?
+    WHERE rating_name LIKE ?
 "; 
 
 //-> is pointer, prepare compiles the template, optimizes for security and performance 
 $statement = $pdo->prepare($sql); 
 //bind parameter to like clause to enable display of only searched names
 //param 1 indicates nth binding placeholder (?s) 
-$like = '%' . $dvd . '%'; 
+$like = $rating; 
 $statement->bindParam(1, $like); 
 $statement->execute();  //executes statement
 $titles = $statement->fetchAll(PDO::FETCH_OBJ); 
 //var_dump($titles);  //dump info on any variable
 
-echo "You searched for '$dvd'"; 
+echo "DVD titles with $rating rating"; 
 
 ?>
 
@@ -47,24 +43,12 @@ echo "You searched for '$dvd'";
 
     <?php foreach($titles as $title) :?> 
     <div>
-        <?php echo $title->title ?><br>
-        <?php echo $title->genre_name ?><br>
-        <?php echo $title->format_name ?><br>
-        <?php echo $title->rating_name ?><br><br> 
-        
-        <a href="ratings.php?rating=<?php echo $title->rating_name ?>">
-            <?php echo $title->rating_name ?>
-        </a>
+        <br><?php echo $title->title ?>
     </div>
     <?php endforeach ?>
     <a href="index.php">Return to search menu</a>
 <?php else : ?>
     <br> 
-    <p>Your search did not match any results</p>
+    <p>This rating did not match any results</p>
     <a href="index.php">Return to search menu</a>
 <?php endif ?>
-
-
-
-
-
