@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Starter Template for Bootstrap</title>
+    <title>DVD Search using PDO</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -39,13 +38,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -54,12 +50,12 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-          <form action="search.php" method="get">
-        Title: <input type="text" name="dvd">
-        <input type="submit" value="Search"> 
-    </form>
+        <h1>Search for a DVD</h1>
+        <p class="lead"></p>
+        <form action="search.php" method="get">
+            Title: <input type="text" name="dvd">
+            <input type="submit" value="Search"> 
+        </form>
       </div>
 
     </div><!-- /.container -->
