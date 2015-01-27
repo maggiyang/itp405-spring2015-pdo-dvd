@@ -44,19 +44,26 @@ echo "You searched for '$dvd'";
 ?>
 
 <?php if ($statement->rowCount() > 0) : ?>
-
-    <?php foreach($titles as $title) :?> 
-    <div>
-        <?php echo $title->title ?><br>
-        <?php echo $title->genre_name ?><br>
-        <?php echo $title->format_name ?><br>
-        <?php echo $title->rating_name ?><br><br> 
-        
-        <a href="ratings.php?rating=<?php echo $title->rating_name ?>">
-            <?php echo $title->rating_name ?>
-        </a>
-    </div>
+    <table class="table table-hover">
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Format</th>
+            <th>Rating</th>
+        </tr>
+        <?php foreach($titles as $title) :?> 
+        <tr>
+            <td><?php echo $title->title ?></td>
+            <td><?php echo $title->genre_name ?></td>
+            <td><?php echo $title->format_name ?></td>
+            <td>
+                <a href="ratings.php?rating=<?php echo $title->rating_name ?>">
+                    <?php echo $title->rating_name ?>
+                </a>
+            </td>
+        </tr>
     <?php endforeach ?>
+    </table>
     <a href="index.php">Return to search menu</a>
 <?php else : ?>
     <br> 
