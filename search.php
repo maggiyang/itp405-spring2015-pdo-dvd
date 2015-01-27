@@ -40,22 +40,31 @@ $titles = $statement->fetchAll(PDO::FETCH_OBJ);
 //var_dump($titles);  //dump info on any variable
 
 echo "You searched for '$dvd'"; 
+
 ?>
 
-<?php foreach($titles as $title) :?> 
+
+<?php if ($statement->rowCount() > 0) : ?>
+
+    <?php foreach($titles as $title) :?> 
     <div>
         <?php echo $title->title ?><br>
         <?php echo $title->genre_name ?><br>
         <?php echo $title->format_name ?><br>
-        <?php echo $title->rating_name ?><br>
+        <?php echo $title->rating_name ?><br><br> 
         
-<!--
         <a href="genres.php?genre=<?php echo $song->genre ?>">
             <?php echo $song->genre ?>
         </a>
--->
     </div>
-<?php endforeach ?>
+    <?php endforeach ?>
+    <a href="index.php">Return to search menu</a>
+<?php else : ?>
+    <br> 
+    <p>Your search did not match any results</p>
+    <a href="index.php">Return to search menu</a>
+<?php endif ?>
+
 
 
 
