@@ -17,6 +17,7 @@
     <link href="starter-template.css" rel="stylesheet">
 
   </head>
+
   <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -37,87 +38,30 @@
       </div>
     </nav>
 
-
-<?php
-
-//check for errors when loading search.php, it redirects to home or index.php
-if(!isset($_GET['dvd'])){
-    header('Location: index.php'); 
-}
-
-//Global method $_GET, $_POST, $_REQUEST (works for both post and get method) 
-$dvd = $_GET['dvd']; 
-
-$host = 'itp460.usc.edu'; 
-$dbname = 'dvd'; 
-$user = 'student';
-$password = 'ttrojan'; 
-
-$pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
-
-//prepared statement 
-//prevent malicious sql injection attacks by eliminating user input and precompiling sql code 
-$sql = "
-    SELECT title, genre_name, format_name, rating_name
-    FROM dvds
-    INNER JOIN genres
-    ON genre_id = genres.id
-    INNER JOIN formats 
-    ON format_id = formats.id
-    INNER JOIN ratings
-    ON rating_id = ratings.id
-    WHERE title LIKE ?
-"; 
-
-//-> is pointer, prepare compiles the template, optimizes for security and performance 
-$statement = $pdo->prepare($sql); 
-//bind parameter to like clause to enable display of only searched names
-//param 1 indicates nth binding placeholder (?s) 
-$like = '%' . $dvd . '%'; 
-$statement->bindParam(1, $like); 
-$statement->execute();  //executes statement
-$titles = $statement->fetchAll(PDO::FETCH_OBJ); 
-
-?>
-
-<?php if ($statement->rowCount() > 0) : ?>
     <div class="container">
-    <div class="starter-template">
-    <h1>You searched for "<?php echo $dvd ?>"</h1>
-    <tbod>
-    <table class="table table-hover">
-        <tr>
-            <th>Title</th>
-            <th>Genre</th>
-            <th>Format</th>
-            <th>Rating</th>
-        </tr>
-        <?php foreach($titles as $title) :?> 
-        <tr>
-            <td><?php echo $title->title ?></td>
-            <td><?php echo $title->genre_name ?></td>
-            <td><?php echo $title->format_name ?></td>
-            <td>
-                <a href="ratings.php?rating=<?php echo $title->rating_name ?>">
-                    <?php echo $title->rating_name ?>
-                </a>
-            </td>
-        </tr>
-    <?php endforeach ?>
-    </table>
-    </tbod>
-    <a href="index.php">Return to search menu</a>
-    </div>
-    </div>
-<?php else : ?>
-    <div class="container">
-    <div class="starter-template"> 
-        <p>Your search did not match any results</p>
-        <a href="index.php">Return to search menu</a>
-    </div>
-    </div>
-<?php endif ?>
-</body>
+
+      <div class="starter-template">
+        <h1>Search for a DVD</h1>
+        <p class="lead"></p>
+        <form action="results.php" method="get">
+            Title: <input type="text" name="dvd">
+            <input type="submit" value="Search"> 
+        </form>
+      </div>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>
-
-

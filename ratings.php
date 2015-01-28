@@ -90,14 +90,14 @@ $titles = $statement->fetchAll(PDO::FETCH_OBJ);
         </tr>
     <?php endforeach ?>
     </table>
-    <a href="index.php">Return to search menu</a>
+    <a href="search.php">Return to search menu</a>
     </div>
     </div>
 <?php else : ?>
     <div class="container">
     <div class="starter-template">
         <p>This rating did not match any results</p>
-        <a href="index.php">Return to search menu</a>
+        <a href="search.php">Return to search menu</a>
     </div>
     </div>
 <?php endif ?>

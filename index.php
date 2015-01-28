@@ -43,7 +43,7 @@
       <div class="starter-template">
         <h1>Search for a DVD</h1>
         <p class="lead"></p>
-        <form action="search.php" method="get">
+        <form action="results.php" method="get">
             Title: <input type="text" name="dvd">
             <input type="submit" value="Search"> 
         </form>
