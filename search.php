@@ -84,6 +84,7 @@ $titles = $statement->fetchAll(PDO::FETCH_OBJ);
     <div class="container">
     <div class="starter-template">
     <h1>You searched for "<?php echo $dvd ?>"</h1>
+    <tbod>
     <table class="table table-hover">
         <tr>
             <th>Title</th>
@@ -104,11 +105,15 @@ $titles = $statement->fetchAll(PDO::FETCH_OBJ);
         </tr>
     <?php endforeach ?>
     </table>
+    </tbod>
     <a href="index.php">Return to search menu</a>
+    </div>
+    </div>
 <?php else : ?>
-    <br> 
-    <p>Your search did not match any results</p>
-    <a href="index.php">Return to search menu</a>
+    <div class="container">
+    <div class="starter-template"> 
+        <p>Your search did not match any results</p>
+        <a href="index.php">Return to search menu</a>
     </div>
     </div>
 <?php endif ?>
